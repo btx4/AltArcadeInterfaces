@@ -1,0 +1,247 @@
+[gd_scene load_steps=31 format=3 uid="uid://c1j8su56qypqf"]
+
+[ext_resource type="Script" path="res://pong_main.gd" id="1_h8r3s"]
+[ext_resource type="Script" path="res://left_paddle.gd" id="1_jflye"]
+[ext_resource type="Script" path="res://right_paddle.gd" id="2_f32x5"]
+[ext_resource type="Texture2D" uid="uid://tvrj3n6yu687" path="res://1x/bOARD.png" id="2_mojxk"]
+[ext_resource type="Script" path="res://ball.gd" id="3_loeac"]
+[ext_resource type="Texture2D" uid="uid://qw87uhlovqre" path="res://1x/Note.png" id="5_42blq"]
+[ext_resource type="Script" path="res://AudioHandler.gd" id="5_xc281"]
+[ext_resource type="AudioStream" uid="uid://quo8f3aw0i6a" path="res://Sounds/wallbounce.mp3" id="5_xjvm1"]
+[ext_resource type="Script" path="res://pitch_paddle.gd" id="6_3802n"]
+[ext_resource type="AudioStream" uid="uid://vlqydfgcuwf2" path="res://Sounds/hit_2.mp3" id="6_djpn8"]
+[ext_resource type="Script" path="res://sprite_2d.gd" id="6_l3eux"]
+[ext_resource type="AudioStream" uid="uid://bqdggafnrhr0t" path="res://Sounds/Hit_3.mp3" id="7_he11p"]
+[ext_resource type="AudioStream" uid="uid://nwnrmbiyhh8a" path="res://Sounds/respawn.mp3" id="8_bu5xk"]
+[ext_resource type="AudioStream" uid="uid://yh67s7knfsj7" path="res://Sounds/g4.mp3" id="9_w2r0k"]
+[ext_resource type="AudioStream" uid="uid://bo8mnr27dvl28" path="res://Sounds/hido.mp3" id="10_b3gw6"]
+[ext_resource type="AudioStream" uid="uid://ivh2gx3fo1ht" path="res://Sounds/re.mp3" id="10_vi3sl"]
+[ext_resource type="AudioStream" uid="uid://w51b8602gtj4" path="res://Sounds/mi.mp3" id="11_6qtyk"]
+[ext_resource type="AudioStream" uid="uid://2okwwp83y50w" path="res://Sounds/fa.mp3" id="12_rh84u"]
+[ext_resource type="AudioStream" uid="uid://d3xqxgfaq1cb7" path="res://Sounds/sol.mp3" id="13_eew0b"]
+[ext_resource type="AudioStream" uid="uid://b2ln5hotbmhbr" path="res://Sounds/la.mp3" id="14_c344m"]
+[ext_resource type="AudioStream" uid="uid://wcnfyqcrtrdk" path="res://Sounds/ti.mp3" id="15_j01jf"]
+[ext_resource type="FontFile" uid="uid://dy6kts2wo4vgu" path="res://1x/PressStart2P-vaV7.ttf" id="20_8d5jt"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_kuky8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6psda"]
+size = Vector2(31, 171)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nyjoa"]
+size = Vector2(40, 38)
+
+[sub_resource type="Curve" id="Curve_5ad60"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v41po"]
+size = Vector2(70.1138, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jwvdd"]
+size = Vector2(28, 629)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_anubr"]
+size = Vector2(58, 618)
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_0j3ou"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_h8r3s")
+
+[node name="BOard" type="Sprite2D" parent="."]
+position = Vector2(573, 323)
+texture = ExtResource("2_mojxk")
+
+[node name="LeftPaddle" type="CharacterBody2D" parent="."]
+position = Vector2(2505, 144)
+motion_mode = 1
+script = ExtResource("1_jflye")
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftPaddle"]
+position = Vector2(32.3764, 317.481)
+scale = Vector2(-25.536, 168.7)
+texture = SubResource("CanvasTexture_kuky8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftPaddle"]
+position = Vector2(32.5, 317)
+shape = SubResource("RectangleShape2D_6psda")
+
+[node name="RightPaddle" type="CharacterBody2D" parent="." groups=["paddle"]]
+position = Vector2(1109, 332)
+motion_mode = 1
+script = ExtResource("2_f32x5")
+
+[node name="Sprite2D2" type="Sprite2D" parent="RightPaddle"]
+position = Vector2(-1.232, 0.349998)
+scale = Vector2(-25.536, 168.7)
+texture = SubResource("CanvasTexture_kuky8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightPaddle"]
+position = Vector2(-1.232, 0.349998)
+shape = SubResource("RectangleShape2D_6psda")
+
+[node name="Ball" type="CharacterBody2D" parent="."]
+position = Vector2(570, 331)
+motion_mode = 1
+script = ExtResource("3_loeac")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+position = Vector2(0, -8)
+rotation = 2.83636
+scale = Vector2(-0.15214, -0.154062)
+texture = ExtResource("5_42blq")
+script = ExtResource("6_l3eux")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("RectangleShape2D_nyjoa")
+
+[node name="wallbounce" type="AudioStreamPlayer2D" parent="Ball"]
+position = Vector2(2, 325)
+scale = Vector2(22.84, 1)
+stream = ExtResource("5_xjvm1")
+
+[node name="hit_2" type="AudioStreamPlayer2D" parent="Ball"]
+position = Vector2(2, 325)
+scale = Vector2(22.84, 1)
+stream = ExtResource("6_djpn8")
+
+[node name="hit_3" type="AudioStreamPlayer2D" parent="Ball"]
+position = Vector2(2, 325)
+scale = Vector2(22.84, 1)
+stream = ExtResource("7_he11p")
+
+[node name="respawn" type="AudioStreamPlayer2D" parent="Ball"]
+stream = ExtResource("8_bu5xk")
+
+[node name="Line2D" type="Line2D" parent="Ball"]
+closed = true
+width = 200.0
+width_curve = SubResource("Curve_5ad60")
+
+[node name="do" type="AudioStreamPlayer2D" parent="Ball"]
+stream = ExtResource("9_w2r0k")
+
+[node name="re" type="AudioStreamPlayer2D" parent="Ball"]
+stream = ExtResource("10_vi3sl")
+
+[node name="mi" type="AudioStreamPlayer2D" parent="Ball"]
+stream = ExtResource("11_6qtyk")
+
+[node name="fa" type="AudioStreamPlayer2D" parent="Ball"]
+stream = ExtResource("12_rh84u")
+
+[node name="sol" type="AudioStreamPlayer2D" parent="Ball"]
+stream = ExtResource("13_eew0b")
+
+[node name="la" type="AudioStreamPlayer2D" parent="Ball"]
+stream = ExtResource("14_c344m")
+
+[node name="ti" type="AudioStreamPlayer2D" parent="Ball"]
+stream = ExtResource("15_j01jf")
+
+[node name="hido" type="AudioStreamPlayer2D" parent="Ball"]
+stream = ExtResource("10_b3gw6")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(572, 656)
+scale = Vector2(22.84, 1)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Ground"]
+position = Vector2(-0.175131, 2)
+shape = SubResource("RectangleShape2D_v41po")
+
+[node name="Ceiling" type="StaticBody2D" parent="."]
+position = Vector2(641, -1)
+scale = Vector2(22.84, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
+position = Vector2(0.875656, 4)
+shape = SubResource("RectangleShape2D_v41po")
+
+[node name="Score L" type="Area2D" parent="."]
+position = Vector2(-75, 326)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Score L"]
+position = Vector2(7, 4.5)
+shape = SubResource("RectangleShape2D_jwvdd")
+
+[node name="Score R" type="Area2D" parent="."]
+position = Vector2(1322, 325)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Score R"]
+position = Vector2(-2, 3)
+shape = SubResource("RectangleShape2D_anubr")
+
+[node name="Score" type="CanvasLayer" parent="."]
+
+[node name="PlayerScore" type="Label" parent="Score"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -145.0
+offset_top = 48.0
+offset_right = -95.0
+offset_bottom = 138.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("20_8d5jt")
+theme_override_font_sizes/font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2Score" type="Label" parent="Score"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 95.0
+offset_top = 48.0
+offset_right = 145.0
+offset_bottom = 138.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("20_8d5jt")
+theme_override_font_sizes/font_size = 50
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-558, 174)
+stream = SubResource("AudioStreamMicrophone_0j3ou")
+autoplay = true
+attenuation = 0.0915054
+max_polyphony = 5
+bus = &"Recorder"
+
+[node name="Node2D" type="Node2D" parent="AudioStreamPlayer2D"]
+position = Vector2(-76, 280)
+script = ExtResource("5_xc281")
+
+[node name="Pitch Paddle" type="CharacterBody2D" parent="." groups=["paddle"]]
+position = Vector2(50, 316)
+motion_mode = 1
+script = ExtResource("6_3802n")
+
+[node name="Sprite2D" type="Sprite2D" parent="Pitch Paddle"]
+position = Vector2(-6.232, 1.35001)
+scale = Vector2(-25.536, 168.7)
+texture = SubResource("CanvasTexture_kuky8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pitch Paddle"]
+position = Vector2(-6.1084, 0.869019)
+shape = SubResource("RectangleShape2D_6psda")
+
+[node name="Volume Paddle" type="CharacterBody2D" parent="."]
+position = Vector2(-622, 678)
+motion_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Volume Paddle"]
+position = Vector2(32.3764, 317.481)
+scale = Vector2(-25.536, 168.7)
+texture = SubResource("CanvasTexture_kuky8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Volume Paddle"]
+position = Vector2(32.5, 317)
+shape = SubResource("RectangleShape2D_6psda")
+
+[connection signal="body_entered" from="Score L" to="." method="_on_score_l_body_entered"]
+[connection signal="body_entered" from="Score R" to="." method="_on_score_r_body_entered"]
